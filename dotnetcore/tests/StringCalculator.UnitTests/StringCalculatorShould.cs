@@ -8,11 +8,11 @@ namespace KataStringCalculator.UnitTests
 {
     public class StringCalculatorShould
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public StringCalculatorShould(ITestOutputHelper output)
         {
-            this.output = output;
+            _output = output;
         }
 
         [Theory(DisplayName = "Return Zero (0) When String Is Null Empty or Whitespace")]
@@ -23,9 +23,10 @@ namespace KataStringCalculator.UnitTests
         {
             int expected = 0;
 
-            var sut = StringCalculator.Add(value);
+            var sut = new StringCalculator();
+            var result = sut.Add(value);
 
-            sut.Should().Be(expected);
+            result.Should().Be(expected);
         }
 
         [Fact(DisplayName = "Return Integer Value When One Integer Value Is Provided")]
@@ -34,13 +35,14 @@ namespace KataStringCalculator.UnitTests
             string value = "1";
             int expected = 1;
 
-            var sut = StringCalculator.Add(value);
+            var sut = new StringCalculator();
+            var result = sut.Add(value);
 
-            sut.Should().Be(expected);
+            result.Should().Be(expected);
             
-            output.WriteLine($"Value provided was {value}");
-            output.WriteLine($"Expected sum value should be {expected}");
-            output.WriteLine($"Sum outcome is {sut}");
+            _output.WriteLine($"Value provided was {value}");
+            _output.WriteLine($"Expected sum value should be {expected}");
+            _output.WriteLine($"Sum outcome is {sut}");
         }
 
         [Theory(DisplayName = "Return Expected Total Sum When Multiple Comma Delimited Integers Are Provided")]
@@ -50,13 +52,28 @@ namespace KataStringCalculator.UnitTests
         [InlineData("1\n",1)]
         public void ReturnExpectedTotalSumWhenMultipleCommaDelimitedIntegersAreProvided(string value, int expected)
         {
-            var sut = StringCalculator.Add(value);
+            var sut = new StringCalculator();
+            var result = sut.Add(value);
 
-            sut.Should().Be(expected);
+            result.Should().Be(expected);
             
-            output.WriteLine($"Value provided was {value}");
-            output.WriteLine($"Expected sum value should be {expected}");
-            output.WriteLine($"Sum outcome is {sut}");
+            _output.WriteLine($"Value provided was {value}");
+            _output.WriteLine($"Expected sum value should be {expected}");
+            _output.WriteLine($"Sum outcome is {sut}");
+        }
+
+        [Theory(DisplayName = "Return Expected Total Sum When Provided Custom Delimiter")]
+        [InlineData("//;\n1,2",3)]
+        public void ReturnExpectedTotalSumWhenProvidedCustomDelimiter(string value, int expected)
+        {
+            var sut = new StringCalculator();
+            var result = sut.Add(value);
+
+            result.Should().Be(expected);
+            
+            _output.WriteLine($"Value provided was {value}");
+            _output.WriteLine($"Expected sum value should be {expected}");
+            _output.WriteLine($"Sum outcome is {sut}");
         }
     }
 }

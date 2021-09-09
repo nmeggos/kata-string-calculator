@@ -16,7 +16,9 @@ namespace KataStringCalculator.ConsoleUI
                 
                 Console.WriteLine($"You entered: {values}");
 
-                int sum = StringCalculator.Add(values);
+                var calculator = new StringCalculator();
+                
+                int sum = calculator.Add(values);
                 
                 Console.WriteLine($"The sum of the values you entered is: {sum}");
 
